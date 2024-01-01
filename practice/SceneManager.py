@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
 from Settings import *
-import time
+import math
 import random
 
 import Bullet
@@ -9,15 +9,20 @@ import pygame
 import Map
 import NPC
 import Monster
+import Button
 
 import Player
 import DialogBox
 import BattleBox
 
+def distance(a,b,c,d):
+    return math.sqrt((a-c)**2+(b-d)**2)
+
 class SceneManager:
     def __init__(self, window):
         self.state = GameState.GAME_PLAY_WILD
         self.map = Map.gen_map()
+        self.active = False
 
         self.npcs = pygame.sprite.Group()
         self.npcs.add(NPC.NPC(WindowSettings.width // 4, WindowSettings.height // 4 + 80))
@@ -31,7 +36,7 @@ class SceneManager:
         self.bullets = pygame.sprite.Group()
 
         for _ in range(5):
-            self.monsters.add(Monster.Monster(random.randrange(1,WindowSettings.width), random.randrange(1,WindowSettings.height)))
+            self.monsters.add(Monster.Monster(random.randrange(5,WindowSettings.width-5), random.randrange(5,WindowSettings.height-5)))
         self.battleBox = None
 
     def get_width(self):
@@ -39,6 +44,11 @@ class SceneManager:
 
     def get_height(self):
         return WindowSettings.height
+    
+    def begin_game(self):
+        #self.state.reset_state()
+        #加一段重置游戏设定
+        self.active = True
     
     def check_event_talking(self, player, keys):
         # check for all npcs
@@ -62,7 +72,7 @@ class SceneManager:
         self.bullets.add(new_bullet)
 
 
-    def update(self,monster):
+    def update(self,monster,player):
         # update npc,monster,bullet
         
         for each in self.npcs.sprites():
@@ -71,9 +81,14 @@ class SceneManager:
             each.update(monster.get_posx(),monster.get_posy())
 
         for each in self.monsters.sprites():
-            each.update()
+            each.update(player.get_posx(),player.get_posy())
+        
+        #怪少了，生成新的怪
+        if len(self.monsters.sprites()) <= 1:
+            for _ in range(5):
+                self.monsters.add(Monster.Monster(random.randrange(5,WindowSettings.width-5), random.randrange(1,WindowSettings.height-1)))
 
-    def render(self,monster):
+    def render(self,monster,player):
         for i in range(SceneSettings.tileXnum):
             for j in range(SceneSettings.tileYnum):
                 self.window.blit(self.map[i][j],
@@ -87,6 +102,11 @@ class SceneManager:
             #消除碰到障碍物的子弹
             if pygame.sprite.spritecollide(bullet, self.obstacles, False):
                 self.bullets.remove(bullet)
+
+        for monster in self.monsters.copy():
+            if pygame.sprite.spritecollide(player, self.monsters, False):
+                self.monsters.remove(monster)
+                self.active = False
             '''
             if pygame.sprite.spritecollide(bullet, self.monsters, False):
                 self.bullets.remove(bullet)
@@ -108,14 +128,14 @@ class SceneManager:
             if pygame.sprite.spritecollide(bullet, self.monsters, False):
                 self.bullets.remove(bullet)
                 self.monsters.remove(monster)
-                collisions = pygame.sprite.groupcollide(
-                self.bullets, self.monsters, True, True) 
                 return True
 
-    #获得一个随机怪物
+    #获得group中的一个随机怪物
     def getmonster(self):
         return random.choice(self.monsters.sprites())
 
+    def game_active(self):
+        return self.active
 
         # TODO
 

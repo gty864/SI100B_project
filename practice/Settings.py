@@ -10,15 +10,15 @@ class WindowSettings:
     outdoorScale = 1.5 # A necessary scale to allow camera movement in outdoor scenes
 
 class BulletSettings:
-    bulletSpeed = 6
+    bulletSpeed = 30
     bulletWidth = 30
-    bulletHeight = 30
+    bulletHeight = 60
     bulletColor = (255,255,0)
 
 class PlayerSettings:
     playerSpeed = 5
-    playerWidth = 40
-    playerHeight = 35
+    playerWidth = 45
+    playerHeight = 40
     playerHP = 20
     playerAttack = 5
     playerDefence = 1
@@ -31,16 +31,16 @@ class NPCSettings:
     talkCD = 30           # 1s
 
 class MonsterSettings:
-    monsterWidth = 60
-    monsterHeight = 60
-    monsterSpeed = 5
+    monsterWidth = 40
+    monsterHeight = 40
+    monsterSpeed = 2
 
 
 class SceneSettings:
     tileXnum = 36
     tileYnum = 18
     tileWidth = tileHeight = 40
-    obstacleDensity = 0.1
+    obstacleDensity = 0.01
 
 class DialogSettings:
     boxWidth = 800
@@ -98,7 +98,7 @@ class GamePath:
     ]
     npc = r".\assets\npc\npc.png"
     monster = r".\assets\npc\monster\1.png"
-    bullet = r".\assets\npc\npc.png"
+    bullet = r".\assets\bullets\bullet1.png"
 
     groundTiles = [
         r".\assets\tiles\ground1.png", 

@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 from Settings import *
 import pygame
+import math
 import os
 
 class Bullet(pygame.sprite.Sprite):
@@ -15,8 +16,18 @@ class Bullet(pygame.sprite.Sprite):
         self.speed = BulletSettings.bulletSpeed
 
     def update(self,x,y):
-        self.rect.y += (y-self.rect.y) / self.speed
-        self.rect.x += (x-self.rect.x) / self.speed
+        '''
+        if math.sqrt((self.rect.x - x)**2+(self.rect.y - y)**2) <= 100:
+            self.rect.y = y
+            self.rect.x = x
+        else: 
+            self.rect.y += (y-self.rect.y) / self.speed
+            self.rect.x += (x-self.rect.x) / self.speed        
+        '''
+        t = math.sqrt((y-self.rect.y)**2 + (x-self.rect.x)**2)
+        self.rect.y += self.speed / t * (y-self.rect.y)
+        self.rect.x += self.speed / t * (x-self.rect.x) 
+
 
 
         
