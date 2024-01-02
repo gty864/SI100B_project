@@ -43,25 +43,20 @@ def run_game():
         if scene.game_active():
             # 更新 NPC / Player
             player.update(keys, scene)   # 主要是角色移动
-            if flg==0:
-                monster = scene.getmonster()
-                flg=1
-            if scene.iskilled(monster):
-                scene.update(scene.getmonster(),player)
-                monster = scene.getmonster() 
-            else:
-                scene.update(monster,player)                # 主要是场景中对象的动画更新，暂时不涉及player的部分
+
+            scene.update(player)
+             # 主要是场景中对象的动画更新，暂时不涉及player的部分
 
             tot+=1
             if keys[pygame.K_SPACE]:     #按空格键开火
                            
-                if tot>30: #4是攻速
+                if tot>5: #5是攻速
                     scene.fire(player.get_posx(),player.get_posy())
-                    tot=0
+                    tot=0   
 
             # talking 的render 必须要在scene render以后，不然会被背景盖掉
                     
-            scene.render(monster,player)                
+            scene.render(player)                
             player.draw(window)
 
             scene.check_event_talking(player, keys)

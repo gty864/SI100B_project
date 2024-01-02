@@ -68,32 +68,52 @@ class SceneManager:
         pass
 
     def fire(self,x,y):
-        new_bullet = Bullet.Bullet(x,y)
+        min = 998244353
+        for each in self.monsters.sprites():
+            if distance(x,y,each.get_posx(),each.get_posy()) < min:
+                min = distance(x,y,each.get_posx(),each.get_posy())
+                monsterx = each.get_posx()
+                monstery = each.get_posy()
+
+        t = math.sqrt((monstery-y)**2 + (monsterx-x)**2) #t为斜边长
+        new_bullet = Bullet.Bullet(x,y,(monstery-y)/t,(monsterx-x)/t)
         self.bullets.add(new_bullet)
 
 
-    def update(self,monster,player):
+    def update(self,player):
         # update npc,monster,bullet
         
         for each in self.npcs.sprites():
             each.update()
         for each in self.bullets.sprites():
-            each.update(monster.get_posx(),monster.get_posy())
+            each.update()
 
         for each in self.monsters.sprites():
             each.update(player.get_posx(),player.get_posy())
         
         #怪少了，生成新的怪
-        if len(self.monsters.sprites()) <= 1:
+        if len(self.monsters.sprites()) < 1:
             for _ in range(5):
                 self.monsters.add(Monster.Monster(random.randrange(5,WindowSettings.width-5), random.randrange(1,WindowSettings.height-1)))
 
-    def render(self,monster,player):
+    def render(self,player):
         for i in range(SceneSettings.tileXnum):
             for j in range(SceneSettings.tileYnum):
                 self.window.blit(self.map[i][j],
                                  (SceneSettings.tileWidth * i, SceneSettings.tileHeight * j))
+                
+         #消除碰到怪物的子弹和怪物        
+        for monster in self.monsters.copy():
+                if pygame.sprite.spritecollide(monster,self.bullets, False):
+                    for bullet in self.bullets.copy():
+                        if pygame.sprite.spritecollide(bullet,self.monsters, False):
+                            self.monsters.remove(monster)
+                            self.bullets.remove(bullet)
 
+        for monster in self.monsters.copy():
+            if pygame.sprite.spritecollide(player, self.monsters, False):
+                self.monsters.remove(monster)
+                self.active = False                                         
         
         for bullet in self.bullets.copy():
             #消除屏幕外的子弹
@@ -102,11 +122,8 @@ class SceneManager:
             #消除碰到障碍物的子弹
             if pygame.sprite.spritecollide(bullet, self.obstacles, False):
                 self.bullets.remove(bullet)
-
-        for monster in self.monsters.copy():
-            if pygame.sprite.spritecollide(player, self.monsters, False):
-                self.monsters.remove(monster)
-                self.active = False
+           
+            
             '''
             if pygame.sprite.spritecollide(bullet, self.monsters, False):
                 self.bullets.remove(bullet)
