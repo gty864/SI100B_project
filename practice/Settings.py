@@ -9,6 +9,9 @@ class WindowSettings:
     height = 720
     outdoorScale = 1.5 # A necessary scale to allow camera movement in outdoor scenes
 
+class ClockSettings:
+    clock = 32
+
 class BulletSettings:
     bulletSpeed = 30
     bulletWidth = 30
@@ -23,6 +26,7 @@ class PlayerSettings:
     playerAttack = 5
     playerDefence = 1
     playerMoney = 0
+    playerAttackspeed = 4
 
 class NPCSettings:
     npcSpeed = 1
@@ -31,9 +35,12 @@ class NPCSettings:
     talkCD = 30           # 1s
 
 class MonsterSettings:
+    initialmonsternum = 8
     monsterWidth = 40
     monsterHeight = 40
     monsterSpeed = 2
+    monsterHP = 10
+    monsterAttack = 2
 
 
 class SceneSettings:

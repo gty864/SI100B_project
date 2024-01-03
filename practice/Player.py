@@ -22,9 +22,13 @@ class Player(pygame.sprite.Sprite):
         self.Attack = PlayerSettings.playerAttack
         self.Defence = PlayerSettings.playerDefence
         self.Money = PlayerSettings.playerMoney
+        self.Attackspeed = PlayerSettings.playerAttackspeed
 
     def move(self, dx, dy):
         self.rect = self.rect.move(dx,dy)
+
+    def get_playerAttackspeed(self):
+        return self.Attackspeed
 
     def get_posx(self):
         return self.rect.x
@@ -62,8 +66,15 @@ class Player(pygame.sprite.Sprite):
                 if self.turn == False:
                     self.index += 4 #挖了个小坑，之后若player的img多了要改一改
                 self.image = self.images[self.index]
- 
 
+    def wasattacked(self,attack):
+        self.HP -= attack
+ 
+    def get_attack(self):
+        return self.Attack
+    
+    def get_HP(self):
+        return self.HP
 
     def draw(self, window):
         window.blit(self.image, self.rect)

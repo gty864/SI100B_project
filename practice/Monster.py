@@ -14,18 +14,30 @@ class Monster(pygame.sprite.Sprite):
         self.rect.topleft = (x, y)
 
         self.speed = MonsterSettings.monsterSpeed
+        self.HP = MonsterSettings.monsterHP
+        self.Attack = MonsterSettings.monsterAttack
         self.direction = 1
-        self.initialPosition = x
-        self.patrollingRange = 400
 
     def update(self,x,y): #玩家的x,y坐标,t为所构成rt三角形的斜边长
         t = math.sqrt((y-self.rect.y)**2 + (x-self.rect.x)**2)
-        self.rect.y += self.speed / t * (y-self.rect.y)
-        self.rect.x += self.speed / t * (x-self.rect.x) 
+        if t != 0:
+            self.rect.y += self.speed / t * (y-self.rect.y)
+            self.rect.x += self.speed / t * (x-self.rect.x) 
         if  self.rect.left < 0 or self.rect.right > WindowSettings.width :
             self.direction *= -1  # 反转方向
             self.image = pygame.transform.flip(self.image, True, False)
+
+    def wasattacked(self,attack):
+        self.HP -= attack
+
+    def faster(self):
+        self.speed += 2
         
+    def get_attack(self):
+        return self.Attack
+    
+    def get_HP(self):
+        return self.HP
 
     def get_posx(self):
         return self.rect.x

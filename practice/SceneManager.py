@@ -1,8 +1,10 @@
 # -*- coding:utf-8 -*-
 
+from typing import *
 from Settings import *
 import math
 import random
+import time
 
 import Bullet
 import pygame
@@ -19,23 +21,33 @@ def distance(a,b,c,d):
     return math.sqrt((a-c)**2+(b-d)**2)
 
 class SceneManager:
-    def __init__(self, window):
+    def __init__(self, window, fontSize: int = BattleSettings.textSize):
+        
+        self.fontSize = fontSize
+        self.fontColor = (255, 0, 0)
+        self.font = pygame.font.Font(None, self.fontSize)
         self.state = GameState.GAME_PLAY_WILD
         self.map = Map.gen_map()
         self.active = False
+        self.tot = 0
 
         self.npcs = pygame.sprite.Group()
         self.npcs.add(NPC.NPC(WindowSettings.width // 4, WindowSettings.height // 4 + 80))
 
         
         self.obstacles = Map.build_obstacles()
-        
+        self.starttime = 0
+        self.count = 60
         self.window = window
+
+        self.monsternum = MonsterSettings.initialmonsternum
+        self.monsterfrequency = 0
+        self.wave = 1
 
         self.monsters = pygame.sprite.Group()
         self.bullets = pygame.sprite.Group()
 
-        for _ in range(5):
+        for _ in range(MonsterSettings.initialmonsternum):
             self.monsters.add(Monster.Monster(random.randrange(5,WindowSettings.width-5), random.randrange(5,WindowSettings.height-5)))
         self.battleBox = None
 
@@ -82,7 +94,7 @@ class SceneManager:
 
     def update(self,player):
         # update npc,monster,bullet
-        
+
         for each in self.npcs.sprites():
             each.update()
         for each in self.bullets.sprites():
@@ -90,11 +102,18 @@ class SceneManager:
 
         for each in self.monsters.sprites():
             each.update(player.get_posx(),player.get_posy())
+
+        self.gen_monster()
         
-        #怪少了，生成新的怪
+    def gen_monster(self):
         if len(self.monsters.sprites()) < 1:
-            for _ in range(5):
+            self.monsternum+=1
+            self.wave += 1
+            print("第",self.wave,"波")
+            for _ in range(self.monsternum):
                 self.monsters.add(Monster.Monster(random.randrange(5,WindowSettings.width-5), random.randrange(1,WindowSettings.height-1)))
+            for each in self.monsters.sprites():
+                each.faster()
 
     def render(self,player):
         for i in range(SceneSettings.tileXnum):
@@ -102,18 +121,23 @@ class SceneManager:
                 self.window.blit(self.map[i][j],
                                  (SceneSettings.tileWidth * i, SceneSettings.tileHeight * j))
                 
-         #消除碰到怪物的子弹和怪物        
+         #消除碰到怪物的子弹        
         for monster in self.monsters.copy():
                 if pygame.sprite.spritecollide(monster,self.bullets, False):
                     for bullet in self.bullets.copy():
-                        if pygame.sprite.spritecollide(bullet,self.monsters, False):
-                            self.monsters.remove(monster)
+                        if pygame.sprite.spritecollide(bullet,self.monsters, False): #怪被子弹击中了，减血
+                            monster.wasattacked(player.get_attack())
+                            if monster.get_HP() <= 0 :
+                                self.monsters.remove(monster)
                             self.bullets.remove(bullet)
-
+        self.monsterfrequency += 1
         for monster in self.monsters.copy():
             if pygame.sprite.spritecollide(player, self.monsters, False):
-                self.monsters.remove(monster)
-                self.active = False                                         
+                if self.monsterfrequency > 10:
+                    player.wasattacked(monster.get_attack())
+                    self.monsterfrequency = 0
+                if player.get_HP() <= 0:
+                    self.active = False                                         
         
         for bullet in self.bullets.copy():
             #消除屏幕外的子弹
@@ -122,22 +146,25 @@ class SceneManager:
             #消除碰到障碍物的子弹
             if pygame.sprite.spritecollide(bullet, self.obstacles, False):
                 self.bullets.remove(bullet)
-           
-            
-            '''
-            if pygame.sprite.spritecollide(bullet, self.monsters, False):
-                self.bullets.remove(bullet)
-                self.monsters.remove(monster)
 
-            collisions = pygame.sprite.groupcollide(
-                self.bullets, self.monsters, True, True)    
-            '''    
-
-            #print(len(self.bullets))
         self.obstacles.draw(self.window)
         self.npcs.draw(self.window)
         self.bullets.draw(self.window)
         self.monsters.draw(self.window)
+
+        textHP = "player HP: " + str(player.HP)
+        self.write(textHP,1000,50)
+
+    def timing(self):
+        self.tot += 1
+        if self.tot >= ClockSettings.clock:
+            self.count -=1
+            self.tot = 0
+        self.write("Countdown: "+str(self.count),500,50)
+        
+    def write(self,text,x,y):
+        self.window.blit(self.font.render(text, True,self.fontColor),
+                        (x, y))        
 
     #判断是否杀死怪物
     def iskilled(self,monster):
