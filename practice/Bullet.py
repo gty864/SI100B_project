@@ -18,14 +18,6 @@ class Bullet(pygame.sprite.Sprite):
         self.speed = BulletSettings.bulletSpeed
 
     def update(self):
-        '''
-        if math.sqrt((self.rect.x - x)**2+(self.rect.y - y)**2) <= 100:
-            self.rect.y = y
-            self.rect.x = x
-        else: 
-            self.rect.y += (y-self.rect.y) / self.speed
-            self.rect.x += (x-self.rect.x) / self.speed        
-        '''
         self.rect.y += self.sin*self.speed
         self.rect.x += self.cos*self.speed
 

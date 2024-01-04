@@ -11,7 +11,20 @@ class Block(pygame.sprite.Sprite):
         self.rect.topleft = (x, y)
 
 
-def gen_map():
+def gen_city_map():
+    images = [pygame.image.load(tile) for tile in GamePath.cityTiles]
+    images = [pygame.transform.scale(image, (SceneSettings.tileWidth, SceneSettings.tileHeight)) for image in images]
+
+    mapObj = []
+    for i in range(SceneSettings.tileXnum):
+        tmp = []
+        for j in range(SceneSettings.tileYnum):
+            tmp.append(images[randint(0, len(images) - 1)])
+        mapObj.append(tmp)
+    
+    return mapObj
+
+def gen_wild_map():
     images = [pygame.image.load(tile) for tile in GamePath.groundTiles]
     images = [pygame.transform.scale(image, (SceneSettings.tileWidth, SceneSettings.tileHeight)) for image in images]
 
@@ -24,7 +37,7 @@ def gen_map():
     
     return mapObj
 
-def build_obstacles():
+def gen_obstacles():
     image = pygame.image.load(GamePath.tree) 
 
     obstacles = pygame.sprite.Group()

@@ -43,3 +43,17 @@ class Monster(pygame.sprite.Sprite):
         return self.rect.x
     def get_posy(self):
         return self.rect.y
+    
+class Thug(Monster): #暴徒，速度极快
+    def __init__(self, x, y):
+        super().__init__(x,y)
+
+        self.image = pygame.image.load(GamePath.thug)
+        self.image = pygame.transform.scale(self.image, (MonsterSettings.monsterWidth, MonsterSettings.monsterHeight))
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
+
+        self.speed = ThugSettings.thugSpeed
+        self.HP = ThugSettings.thugHP
+        self.Attack = ThugSettings.thugAttack
+        self.direction = 1

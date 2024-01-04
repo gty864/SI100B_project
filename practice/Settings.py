@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 
 from enum import Enum
+import pygame
 
 class WindowSettings:
     name = "Thgink Luos"
@@ -42,12 +43,20 @@ class MonsterSettings:
     monsterHP = 10
     monsterAttack = 2
 
+class ThugSettings:
+    thugHP = 15
+    thugSpeed = 6
+    thugAttack = 2
 
 class SceneSettings:
     tileXnum = 36
     tileYnum = 18
     tileWidth = tileHeight = 40
     obstacleDensity = 0.01
+
+class SceneType(Enum):
+    CITY = 1
+    WILD = 2
 
 class DialogSettings:
     boxWidth = 800
@@ -56,7 +65,7 @@ class DialogSettings:
     boxStartX = WindowSettings.width // 4           # Coordinate X of the box
     boxStartY = WindowSettings.height // 3 * 2 + 20 # Coordinate Y of the box
 
-    textSize = 48 # Default font size
+    textSize = 30 # Default font size
     textStartX = WindowSettings.width // 4 + 10         # Coordinate X of the first line of dialog
     textStartY = WindowSettings.height // 3 * 2 + 30    # Coordinate Y of the first line of dialog
     textVerticalDist = textSize // 4 * 3                # Vertical distance of two lines
@@ -72,7 +81,7 @@ class BattleSettings:
     boxAlpha = 200
     boxStartX = WindowSettings.width // 8           # Coordinate X of the box
     boxStartY = WindowSettings.height // 8
-    textSize = 48 # Default font size
+    textSize = 30 # Default font size
     textStartX = WindowSettings.width // 4 
     textPlayerStartX = WindowSettings.width // 4          # Coordinate X of the first line of dialog
     textMonsterStartX = WindowSettings.width // 2 +100   
@@ -91,6 +100,10 @@ class BattleSettings:
 
     stepSize = 20
 
+class PortalSettings:
+    portalWidth = 320
+    portalHeight = 320
+
 class GamePath:
     # player/npc related path
     player = [
@@ -104,6 +117,7 @@ class GamePath:
         r".\assets\player\8.png", 
     ]
     npc = r".\assets\npc\npc.png"
+    thug = r".\assets\npc\thug.png"
     monster = r".\assets\npc\monster\1.png"
     bullet = r".\assets\bullets\bullet1.png"
 
@@ -116,7 +130,17 @@ class GamePath:
         r".\assets\tiles\ground6.png", 
     ]
 
+    cityTiles = [
+        r".\assets\tiles\city1.png", 
+        r".\assets\tiles\city2.png", 
+        r".\assets\tiles\city3.png", 
+        r".\assets\tiles\city4.png", 
+        r".\assets\tiles\city5.png", 
+        r".\assets\tiles\city6.png", 
+    ]
+
     tree = r".\assets\tiles\tree.png"
+    portal = r".\assets\others\portal.png"
 
 class GameState(Enum):
     MAIN_MENU = 1
@@ -125,3 +149,14 @@ class GameState(Enum):
     GAME_WIN = 4
     GAME_PAUSE = 5
     GAME_PLAY_WILD = 6
+    GAME_QUIT = 7
+    GAME_PLAY_CITY = 8
+
+class GameEvent:
+    EVENT_BATTLE = pygame.USEREVENT + 1
+    EVENT_DIALOG = pygame.USEREVENT + 2
+    EVENT_FIGHT = pygame.USEREVENT + 3
+    EVENT_RESTART = pygame.USEREVENT + 4
+    EVENT_SHOP = pygame.USEREVENT + 5
+    EVENT_ENDFIGHT = pygame.USEREVENT +6
+    EVENT_QT = pygame.USEREVENT +7

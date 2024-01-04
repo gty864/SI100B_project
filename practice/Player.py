@@ -60,6 +60,10 @@ class Player(pygame.sprite.Sprite):
                 # 遇到障碍物，取消移动
                 self.rect = self.rect.move(-dx, -dy)
 
+            if pygame.sprite.spritecollide(self, scene.portals, 
+                                    False, pygame.sprite.collide_mask):
+                pygame.event.post(pygame.event.Event(GameEvent.EVENT_FIGHT)) #传送
+
             # 更新角色动画
             if any(keys):
                 self.index = (self.index + 1) % 4
