@@ -34,10 +34,10 @@ class SceneManager:
         return WindowSettings.height
                 
     
-    def flush_scene(self):
-        if self.scene.type == SceneType.CITY:
+    def flush_scene(self,dest):
+        if dest == GameState.GAME_PLAY_WILD:
             self.scene = Scene.WildScene(self.window)
-        elif self.scene.type == SceneType.WILD:
+        elif dest == GameState.GAME_PLAY_CITY:
             self.scene = Scene.CityScene(self.window)
         self.scene.render()
 
@@ -45,13 +45,21 @@ class SceneManager:
         self.scene.render()
         textHP = "player HP: " + str(player.HP)
         textwave = "Wave:" + str(wave)
-        self.write(textHP,1000,50)
+        textAttack = "player Attack" + str(player.Attack)
+        textMoney = "player Money: " + str(player.Money)
+        self.write(textHP,1120,10)
         self.write(textwave,500,100)
+        self.write(textAttack,1120,35)
+        self.write(textMoney,1100,70)
 
     def render_city_scene(self,player):
         self.scene.render()
         textHP = "player HP: " + str(player.HP)
-        self.write(textHP,1000,50)
+        textAttack = "player Attack" + str(player.Attack)
+        textMoney = "player Money: " + str(player.Money)
+        self.write(textHP,1120,10)
+        self.write(textAttack,1120,35)
+        self.write(textMoney,1100,70)
         
     def write(self,text,x,y):
         self.window.blit(self.font.render(text, True,self.fontColor),

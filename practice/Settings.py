@@ -11,23 +11,41 @@ class WindowSettings:
     outdoorScale = 1.5 # A necessary scale to allow camera movement in outdoor scenes
 
 class ClockSettings:
-    clock = 32
+    clock = 26
+
+class WeaponSettings:
+    weaponWidth = 35
+    weaponHeight = 20
+    offsetx = 25
+    offsetx2 = 15
+    offsety = 20
+
+class TimeSettings:
+    firstcount = 25
+    secondcount = 30
+    thirdcount = 40
+    fourthcount = 50
+    bosscount = 120
 
 class BulletSettings:
     bulletSpeed = 30
     bulletWidth = 30
     bulletHeight = 60
-    bulletColor = (255,255,0)
+    monsterbulletWidth = 30
+    monsterbulletHeight = 30
+
+class MonsterBulletSettings:
+    monsterbulletSpeed = 15
 
 class PlayerSettings:
-    playerSpeed = 5
-    playerWidth = 45
-    playerHeight = 40
-    playerHP = 20
-    playerAttack = 5
+    playerSpeed = 8
+    playerWidth = 50
+    playerHeight = 45
+    playerHP = 200
+    playerAttack = 2
     playerDefence = 1
     playerMoney = 0
-    playerAttackspeed = 4
+    playerAttackspeed = 5
 
 class NPCSettings:
     npcSpeed = 1
@@ -36,17 +54,35 @@ class NPCSettings:
     talkCD = 30           # 1s
 
 class MonsterSettings:
-    initialmonsternum = 8
-    monsterWidth = 40
-    monsterHeight = 40
-    monsterSpeed = 2
+    initialmonsternum = 5
+    monsterWidth = 45
+    monsterHeight = 45
+    monsterSpeed = 1.5
     monsterHP = 10
     monsterAttack = 2
+    monsterMoney = 2
 
 class ThugSettings:
-    thugHP = 15
-    thugSpeed = 6
-    thugAttack = 2
+    thugHP = 5
+    thugSpeed = 5
+    thugAttack = 3
+    initialthugnum = 3
+    thugMoney = 5
+
+class HulkSettings:
+    hulkHP = 50
+    hulkSpeed = 2
+    hulkAttack = 5
+    initialhulknum = 2
+    hulkMoney = 15
+
+class SoldierSettings:
+    soldierHP = 8
+    soldierSpeed = 1.2
+    soldierAttack = 4
+    soldierattackspeed = 20
+    initialsoldiernum = 2
+    soldierMoney = 7
 
 class SceneSettings:
     tileXnum = 36
@@ -57,6 +93,12 @@ class SceneSettings:
 class SceneType(Enum):
     CITY = 1
     WILD = 2
+
+class MonsterType(Enum):
+    Monster = 1
+    Thug = 2
+    Soldier = 3
+    Hulk = 4
 
 class DialogSettings:
     boxWidth = 800
@@ -117,10 +159,17 @@ class GamePath:
         r".\assets\player\8.png", 
     ]
     npc = r".\assets\npc\npc.png"
+    merchant = r".\assets\npc\merchant.png"
     thug = r".\assets\npc\thug.png"
+    hulk = r".\assets\npc\hulk.png"
+    soldier = r".\assets\npc\soldier.png"
     monster = r".\assets\npc\monster\1.png"
     bullet = r".\assets\bullets\bullet1.png"
+    monsterbullet = r".\assets\bullets\bullet2.png"
 
+    weapon = [r".\assets\weapons\gun.png"
+
+    ]
     groundTiles = [
         r".\assets\tiles\ground1.png", 
         r".\assets\tiles\ground2.png", 
