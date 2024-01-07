@@ -81,7 +81,7 @@ class SoldierSettings:
     soldierSpeed = 1.2
     soldierAttack = 4
     soldierattackspeed = 20
-    initialsoldiernum = 2
+    initialsoldiernum = 1
     soldierMoney = 7
 
 class SceneSettings:
@@ -90,9 +90,14 @@ class SceneSettings:
     tileWidth = tileHeight = 40
     obstacleDensity = 0.01
 
+class MenuSettings:
+    textSize = 36
+    blinkInterval = 15
+
 class SceneType(Enum):
     CITY = 1
     WILD = 2
+    MAIN = 3
 
 class MonsterType(Enum):
     Monster = 1
@@ -187,6 +192,8 @@ class GamePath:
         r".\assets\tiles\city5.png", 
         r".\assets\tiles\city6.png", 
     ]
+
+    menu = r".\assets\others\menu.png"
 
     tree = r".\assets\tiles\tree.png"
     portal = r".\assets\others\portal.png"

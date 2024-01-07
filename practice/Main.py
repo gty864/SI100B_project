@@ -11,7 +11,7 @@ def run_game():
     manager = GameManager(window)
 
     clock = pygame.time.Clock()
-    pygame.event.post(pygame.event.Event(GameEvent.EVENT_FIGHT))
+    #pygame.event.post(pygame.event.Event(GameEvent.EVENT_FIGHT))
     
     while True:
         clock.tick(30)

@@ -21,7 +21,7 @@ class SceneManager:
         self.fontColor = (255, 0, 0)
         self.font = pygame.font.Font(None, self.fontSize)
         self.map = Map.gen_city_map()
-        self.scene = Scene.CityScene(window)
+        self.scene = Scene.MainMenuScene(window)#初始界面
         self.tot = 0
 
         self.obstacles = Map.gen_obstacles()
@@ -39,6 +39,9 @@ class SceneManager:
             self.scene = Scene.WildScene(self.window)
         elif dest == GameState.GAME_PLAY_CITY:
             self.scene = Scene.CityScene(self.window)
+        self.scene.render()
+
+    def render_mainmenu(self):
         self.scene.render()
 
     def render_wild_scene(self,player,wave):

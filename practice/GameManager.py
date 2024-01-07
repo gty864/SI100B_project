@@ -25,7 +25,7 @@ def distance(a,b,c,d):
 class GameManager:
     def __init__(self,window):
 
-        self.state = GameState.GAME_PLAY_CITY
+        self.state = GameState.MAIN_MENU
         self.scene = SceneManager(window)
         self.tot = 0
         self.attackspeed = 0 #控制攻速的变量，并非攻速
@@ -230,7 +230,17 @@ class GameManager:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.state = GameState.GAME_QUIT
-            if event.type == GameEvent.EVENT_ENDFIGHT:
+
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN\
+                and self.state == GameState.MAIN_MENU:
+                    self.scene.flush_scene(GameState.GAME_PLAY_CITY)
+                    self.state = GameState.GAME_PLAY_CITY
+                if event.key == pygame.K_ESCAPE\
+                and self.state == GameState.MAIN_MENU:
+                    self.state = GameState.GAME_QUIT
+            
+            elif event.type == GameEvent.EVENT_ENDFIGHT:
                 self.scene.flush_scene(GameState.GAME_PLAY_CITY)
                 self.wave += 1
                 self.monsterwave = 0
@@ -239,7 +249,8 @@ class GameManager:
                 self.state = GameState.GAME_PLAY_CITY
                 self.gen_monster_logic()
                 self.time_logic()
-            if event.type == GameEvent.EVENT_FIGHT:
+
+            elif event.type == GameEvent.EVENT_FIGHT:
                  self.scene.flush_scene(GameState.GAME_PLAY_WILD)
                  self.state = GameState.GAME_PLAY_WILD
 
@@ -258,12 +269,12 @@ class GameManager:
             self.ifthug = 1
             self.monsternum += 1
         elif self.wave == 5:
-            self.ifhulk = 1
+            self.ifsoldier = 1        
             self.thugnum += 1
             self.monsternum -= 2
         elif self.wave == 7:
-            self.ifsoldier = 1
-            self.hulknum += 1
+            self.ifhulk = 1
+            self.soldiernum += 1
             self.thugnum += 2
         elif self.wave == 8:
             self.monsternum -= 1
@@ -280,15 +291,17 @@ class GameManager:
                 pygame.quit()
                 sys.exit()
             # 战斗结束，进入商店
-        if self.state == GameState.GAME_PLAY_CITY:
+        elif self.state == GameState.GAME_PLAY_CITY:
                 self.stop_monster()
                 self.player.draw(self.window)
                 self.render_city()
             #商店结束，进入战斗
-        if self.state == GameState.GAME_PLAY_WILD:
+        elif self.state == GameState.GAME_PLAY_WILD:
             self.render_wild()
             self.scene.write("Countdown: "+str(self.count),500,50)
 
+        elif self.state == GameState.MAIN_MENU:
+            self.scene.render_mainmenu()
 
     def render_wild(self):
         self.scene.render_wild_scene(self.player,self.wave)
