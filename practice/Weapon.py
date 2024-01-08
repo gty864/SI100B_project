@@ -30,5 +30,9 @@ class Weapon(pygame.sprite.Sprite):
             self.rect.x = player.rect.x - WeaponSettings.offsetx2
         self.rect.y = player.rect.y + WeaponSettings.offsety
 
+    def change(self):
+        self.index = (self.index+1)  % len(self.images)
+        self.image = self.images[self.index]
+
     def draw(self, window):
         window.blit(self.image, self.rect)

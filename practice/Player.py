@@ -11,6 +11,7 @@ class Player(pygame.sprite.Sprite):
         self.images = [pygame.transform.scale(pygame.image.load(img), 
                             (PlayerSettings.playerWidth, PlayerSettings.playerHeight)) for img in GamePath.player]
         self.turn = False #判断玩家当前为左还是为右，F左，T右
+        self.turned = False
         self.index = 0
         self.image = self.images[self.index]
         self.rect = self.image.get_rect()
@@ -51,6 +52,7 @@ class Player(pygame.sprite.Sprite):
             if keys[pygame.K_a] and self.rect.left > 0:
                 dx -= self.speed
                 self.turn = False
+
             if keys[pygame.K_d] and self.rect.right < WindowSettings.width:
                 dx += self.speed
                 self.turn = True

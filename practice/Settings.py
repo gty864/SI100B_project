@@ -172,9 +172,11 @@ class GamePath:
     bullet = r".\assets\bullets\bullet1.png"
     monsterbullet = r".\assets\bullets\bullet2.png"
 
-    weapon = [r".\assets\weapons\gun.png"
-
+    weapon = [
+        r".\assets\weapons\gun.png",
+        r".\assets\weapons\snowfox.png"
     ]
+
     groundTiles = [
         r".\assets\tiles\ground1.png", 
         r".\assets\tiles\ground2.png", 

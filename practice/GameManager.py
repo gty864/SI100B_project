@@ -121,6 +121,8 @@ class GameManager:
         keys = pygame.key.get_pressed()
         self.player.update(keys, self.scene.scene)
         self.weapon.update(self.player)
+        if keys[pygame.K_c]:
+            self.weapon.change()
         for each in self.npcs.sprites():
             each.update()
 
