@@ -28,6 +28,9 @@ class Player(pygame.sprite.Sprite):
     def move(self, dx, dy):
         self.rect = self.rect.move(dx,dy)
 
+    def facai(self):
+        self.Money +=  100
+
     def get_playerAttackspeed(self):
         return self.Attackspeed
 
@@ -72,6 +75,19 @@ class Player(pygame.sprite.Sprite):
                 if self.turn == False:
                     self.index += 4 #挖了个小坑，之后若player的img多了要改一改
                 self.image = self.images[self.index]
+
+    def attr_update(self, addCoins = 0, addHP = 0, addAttack = 0, addSpeed =0, addAttackspeed =0,addDefence = 0):
+        if self.Money + addCoins < 0:
+            return False
+        if self.HP + addHP < 0:
+            return False
+        self.Money += addCoins
+        self.HP += addHP
+        self.Attack += addAttack
+        self.Defence += addDefence
+        self.speed += addSpeed
+        self.Attackspeed += addAttackspeed
+        return True
 
     def wasattacked(self,attack):
         self.HP -= attack

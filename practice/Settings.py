@@ -37,20 +37,30 @@ class BulletSettings:
 class MonsterBulletSettings:
     monsterbulletSpeed = 15
 
+class BossBulletSettings:
+    bossbulletSpeed = 18
+
+class BossshockwaveSettings:
+    bossshockwaveSpeed = 15
+    bossshockwaveHeight = 200
+    bossshockwaveWidth = 30
+
 class PlayerSettings:
     playerSpeed = 8
     playerWidth = 50
     playerHeight = 45
-    playerHP = 200
+    playerHP = 20
     playerAttack = 2
     playerDefence = 1
-    playerMoney = 0
-    playerAttackspeed = 5
+    playerMoney = 40
+    playerAttackspeed = 6
 
 class NPCSettings:
     npcSpeed = 1
     npcWidth = 60
     npcHeight = 60
+    boxWidth = 30
+    boxHeight = 30
     talkCD = 30           # 1s
 
 class MonsterSettings:
@@ -58,31 +68,45 @@ class MonsterSettings:
     monsterWidth = 45
     monsterHeight = 45
     monsterSpeed = 1.5
-    monsterHP = 10
-    monsterAttack = 2
+    monsterHP = 12
+    monsterAttack = 1
     monsterMoney = 2
 
 class ThugSettings:
-    thugHP = 5
+    thugHP = 8
     thugSpeed = 5
-    thugAttack = 3
+    thugAttack = 2
     initialthugnum = 3
     thugMoney = 5
 
 class HulkSettings:
     hulkHP = 50
-    hulkSpeed = 2
-    hulkAttack = 5
-    initialhulknum = 2
+    hulkSpeed = 3
+    hulkAttack = 4
+    initialhulknum = 1
+    hulkchargedist = 50
+    hulkchargespeed = 8
+    hulkchargecd = 80
     hulkMoney = 15
 
 class SoldierSettings:
     soldierHP = 8
     soldierSpeed = 1.2
-    soldierAttack = 4
+    soldierAttack = 3
     soldierattackspeed = 20
     initialsoldiernum = 1
     soldierMoney = 7
+
+class BossSettings:
+    bossHP = 500
+    bossSpeed = 1.2
+    bossAttack = 10
+    bossbulletattack = 3
+    bossbulletattackspeed = 120
+    bossshockwaveattack = 6
+    bossswattackspeed = 60
+    initialbossnum = 1
+
 
 class SceneSettings:
     tileXnum = 36
@@ -98,12 +122,26 @@ class SceneType(Enum):
     CITY = 1
     WILD = 2
     MAIN = 3
+    OVER = 4
 
 class MonsterType(Enum):
     Monster = 1
     Thug = 2
     Soldier = 3
     Hulk = 4
+    Boss = 5
+
+class BulletType(Enum):
+    Soldier = 1
+    Boss = 2
+    Shockwave = 3
+
+class NPCType(Enum):
+    NPC = 1
+    MERCHANT = 2
+    COPPERBOX = 3
+    SILVERBOX = 4
+    GOLDENBOX = 5
 
 class DialogSettings:
     boxWidth = 800
@@ -151,6 +189,14 @@ class PortalSettings:
     portalWidth = 320
     portalHeight = 320
 
+class PropSettings:
+    growthrate = 1.1
+    refreshcoins = -1
+    copper = 25
+    silver = 15
+    gold = 5
+
+
 class GamePath:
     # player/npc related path
     player = [
@@ -169,8 +215,11 @@ class GamePath:
     hulk = r".\assets\npc\hulk.png"
     soldier = r".\assets\npc\soldier.png"
     monster = r".\assets\npc\monster\1.png"
+    boss = r".\assets\npc\boss.png"
     bullet = r".\assets\bullets\bullet1.png"
     monsterbullet = r".\assets\bullets\bullet2.png"
+    bossbullet = r".\assets\bullets\bossbullet.png"
+    bossshockwave = r".\assets\bullets\bossbullet2.png"
 
     weapon = [
         r".\assets\weapons\gun.png",
@@ -195,8 +244,12 @@ class GamePath:
         r".\assets\tiles\city6.png", 
     ]
 
-    menu = r".\assets\others\menu.png"
+    copperbox = r".\assets\others\copperbox.png"
+    silverbox = r".\assets\others\silverbox.png"
+    goldenbox = r".\assets\others\goldenbox.png"
 
+    menu = r".\assets\others\menu.png"
+    gameover = r".\assets\others\gameover.png"
     tree = r".\assets\tiles\tree.png"
     portal = r".\assets\others\portal.png"
 
@@ -211,7 +264,7 @@ class GameState(Enum):
     GAME_PLAY_CITY = 8
 
 class GameEvent:
-    EVENT_BATTLE = pygame.USEREVENT + 1
+    EVENT_LOSE = pygame.USEREVENT + 1
     EVENT_DIALOG = pygame.USEREVENT + 2
     EVENT_FIGHT = pygame.USEREVENT + 3
     EVENT_RESTART = pygame.USEREVENT + 4

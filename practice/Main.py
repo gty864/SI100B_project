@@ -10,9 +10,7 @@ def run_game():
     window = pygame.display.set_mode((WindowSettings.width, WindowSettings.height))
     manager = GameManager(window)
 
-    clock = pygame.time.Clock()
-    #pygame.event.post(pygame.event.Event(GameEvent.EVENT_FIGHT))
-    
+    clock = pygame.time.Clock()     
     while True:
         clock.tick(30)
         manager.switch_state()      

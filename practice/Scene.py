@@ -30,7 +30,6 @@ class Scene():
                                 SceneSettings.tileHeight * j))
                 
         self.obstacles.draw(self.window)
-        self.npcs.draw(self.window)
         self.portals.draw(self.window)
         
         
@@ -76,3 +75,20 @@ class MainMenuScene(Scene):
             self.window.blit(self.text, self.textRect)
             if self.blinkTimer >= MenuSettings.blinkInterval * 2:
                 self.blinkTimer = 0
+
+class GameoverScene(Scene):
+    def __init__(self, window):
+        super().__init__(window)
+        self.type = SceneType.OVER
+        self.bg = pygame.image.load(GamePath.gameover)
+        self.bg = pygame.transform.scale(self.bg, 
+                (WindowSettings.width, WindowSettings.height))
+        self.font = pygame.font.Font(None, MenuSettings.textSize)
+        self.text = self.font.render("Press ENTER to restart",
+                                True, (255, 255, 255))
+        self.textRect = self.text.get_rect(center=(WindowSettings.width // 2, 
+                                WindowSettings.height - 50))
+        
+    def render(self):
+        self.window.blit(self.bg, (0, 0))
+        self.window.blit(self.text, self.textRect)
