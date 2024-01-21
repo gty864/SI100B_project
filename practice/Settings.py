@@ -61,7 +61,7 @@ class NPCSettings:
     npcHeight = 60
     boxWidth = 30
     boxHeight = 30
-    talkCD = 30           # 1s
+    talkCD = 75           # 1s
 
 class MonsterSettings:
     initialmonsternum = 5
@@ -102,7 +102,7 @@ class BossSettings:
     bossSpeed = 1.2
     bossAttack = 10
     bossbulletattack = 3
-    bossbulletattackspeed = 120
+    bossbulletattackspeed = 100
     bossshockwaveattack = 6
     bossswattackspeed = 60
     initialbossnum = 1

@@ -2,17 +2,11 @@
 
 from typing import *
 from Settings import *
-import math
-import random
-import time
-import sys
 
-import Bullet
 import pygame
 import Map
 import NPC
 import DialogBox
-import Monster
 import Scene
 
 class SceneManager:
@@ -34,10 +28,11 @@ class SceneManager:
         self.obstacles = Map.gen_obstacles()
         self.npcs = pygame.sprite.Group()
         self.npcs.add(NPC.NPC(WindowSettings.width // 4, WindowSettings.height // 4 + 80),
-                      NPC.copperbox(WindowSettings.width // 3 *2-100, WindowSettings.height // 4 + 180),
-                      NPC.merchant(WindowSettings.width // 3 *2, WindowSettings.height // 4 + 80),
+                      NPC.copperbox(WindowSettings.width // 3 *2-150, WindowSettings.height // 4 + 180),
+                      NPC.merchant(WindowSettings.width // 3 *2, WindowSettings.height // 4 ),
                       NPC.silverbox(WindowSettings.width // 3 *2, WindowSettings.height // 4 + 180),
-                      NPC.goldenbox(WindowSettings.width // 3 *2 +100, WindowSettings.height // 4 + 230),
+                      NPC.silverbox(WindowSettings.width // 3 *2-300, WindowSettings.height // 4 + 180),
+                      NPC.goldenbox(WindowSettings.width // 3 *2 +150, WindowSettings.height // 4 + 180),
                       ) 
         self.window = window
 

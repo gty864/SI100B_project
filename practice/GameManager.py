@@ -18,8 +18,6 @@ import NPC
 import Monster
 import prop
 
-import DialogBox
-
 def distance(a,b,c,d):
     return math.sqrt((a-c)**2+(b-d)**2)
 
@@ -35,11 +33,7 @@ class GameManager:
         self.weapon = Weapon(WindowSettings.width // 2 , WindowSettings.height // 2 )
 
         self.npcs = pygame.sprite.Group()
-        self.npcs.add(NPC.NPC(WindowSettings.width // 4, WindowSettings.height // 4 + 80),
-                      NPC.merchant(WindowSettings.width // 3 * 2, WindowSettings.height // 4 + 80),
-                      NPC.copperbox(WindowSettings.width // 3 *2-100, WindowSettings.height // 4 + 230),
-                      NPC.silverbox(WindowSettings.width // 3 *2, WindowSettings.height // 4 + 180),
-                      NPC.goldenbox(WindowSettings.width // 3 *2 +100, WindowSettings.height // 4 + 230),)
+        self.npcs = self.scene.npcs.copy()
 
         self.obstacles = Map.gen_obstacles()
         self.window = window
