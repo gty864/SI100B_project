@@ -1,5 +1,4 @@
 # -*- coding:utf-8 -*-
-
 import pygame
 from GameManager import GameManager
 from Settings import *
@@ -10,7 +9,7 @@ def run_game():
     window = pygame.display.set_mode((WindowSettings.width, WindowSettings.height))
     manager = GameManager(window)
 
-    clock = pygame.time.Clock()     
+    clock = pygame.time.Clock()
     while True:
         clock.tick(30)
         manager.switch_state()      

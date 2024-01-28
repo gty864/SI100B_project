@@ -21,6 +21,10 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.y += self.sin*self.speed
         self.rect.x += self.cos*self.speed
 
+    def move(self, dx, dy):
+        self.rect.x += dx
+        self.rect.y += dy
+
 
 class MonsterBullet(Bullet):
     def __init__(self, x,y,sin,cos):

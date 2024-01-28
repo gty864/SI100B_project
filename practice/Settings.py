@@ -5,7 +5,7 @@ from enum import Enum
 import pygame
 
 class WindowSettings:
-    name = "Thgink Luos"
+    name = "Dungeon Breakers"
     width = 1280
     height = 720
     outdoorScale = 1.5 # A necessary scale to allow camera movement in outdoor scenes
@@ -14,23 +14,23 @@ class ClockSettings:
     clock = 26
 
 class WeaponSettings:
-    weaponWidth = 35
-    weaponHeight = 20
+    weaponWidth = 55
+    weaponHeight = 40
     offsetx = 25
     offsetx2 = 15
     offsety = 20
 
 class TimeSettings:
-    firstcount = 25
-    secondcount = 30
-    thirdcount = 40
-    fourthcount = 50
+    firstcount = 20
+    secondcount = 25
+    thirdcount = 30
+    fourthcount = 45
     bosscount = 120
 
 class BulletSettings:
     bulletSpeed = 30
-    bulletWidth = 30
-    bulletHeight = 60
+    bulletWidth = 40
+    bulletHeight = 70
     monsterbulletWidth = 30
     monsterbulletHeight = 30
 
@@ -47,8 +47,8 @@ class BossshockwaveSettings:
 
 class PlayerSettings:
     playerSpeed = 8
-    playerWidth = 50
-    playerHeight = 45
+    playerWidth = 70
+    playerHeight = 65
     playerHP = 20
     playerAttack = 2
     playerDefence = 1
@@ -57,16 +57,17 @@ class PlayerSettings:
 
 class NPCSettings:
     npcSpeed = 1
-    npcWidth = 60
-    npcHeight = 60
+    dogSpeed = 2
+    npcWidth = 80
+    npcHeight = 80
     boxWidth = 30
     boxHeight = 30
     talkCD = 75           # 1s
 
 class MonsterSettings:
-    initialmonsternum = 5
-    monsterWidth = 45
-    monsterHeight = 45
+    initialmonsternum = 6
+    monsterWidth = 65
+    monsterHeight = 65
     monsterSpeed = 1.5
     monsterHP = 12
     monsterAttack = 1
@@ -80,7 +81,7 @@ class ThugSettings:
     thugMoney = 5
 
 class HulkSettings:
-    hulkHP = 50
+    hulkHP = 40
     hulkSpeed = 3
     hulkAttack = 4
     initialhulknum = 1
@@ -99,18 +100,18 @@ class SoldierSettings:
 
 class BossSettings:
     bossHP = 500
-    bossSpeed = 1.2
+    bossSpeed = 3.5
     bossAttack = 10
     bossbulletattack = 3
-    bossbulletattackspeed = 100
+    bossbulletattackspeed = 80
     bossshockwaveattack = 6
     bossswattackspeed = 60
     initialbossnum = 1
 
 
 class SceneSettings:
-    tileXnum = 36
-    tileYnum = 18
+    tileXnum = 48
+    tileYnum = 27
     tileWidth = tileHeight = 40
     obstacleDensity = 0.01
 
@@ -121,8 +122,11 @@ class MenuSettings:
 class SceneType(Enum):
     CITY = 1
     WILD = 2
-    MAIN = 3
-    OVER = 4
+    WIN = 3
+    MAIN = 4
+    OVER = 5
+    BADENDING = 6
+    GOODENDING = 7
 
 class MonsterType(Enum):
     Monster = 1
@@ -142,6 +146,11 @@ class NPCType(Enum):
     COPPERBOX = 3
     SILVERBOX = 4
     GOLDENBOX = 5
+    PAPERBOX = 6
+    MERCHANT2 = 7
+    DOG = 8
+    NPC2 = 9
+    Karina = 10
 
 class DialogSettings:
     boxWidth = 800
@@ -190,7 +199,7 @@ class PortalSettings:
     portalHeight = 320
 
 class PropSettings:
-    growthrate = 1.1
+    growthrate = 1.2
     refreshcoins = -1
     copper = 25
     silver = 15
@@ -210,7 +219,11 @@ class GamePath:
         r".\assets\player\8.png", 
     ]
     npc = r".\assets\npc\npc.png"
+    npc2 = r".\assets\npc\npc2.png"
     merchant = r".\assets\npc\merchant.png"
+    merchant2 = r".\assets\npc\merchant2.png"
+    karina = r".\assets\npc\karina.png"
+    
     thug = r".\assets\npc\thug.png"
     hulk = r".\assets\npc\hulk.png"
     soldier = r".\assets\npc\soldier.png"
@@ -220,6 +233,14 @@ class GamePath:
     monsterbullet = r".\assets\bullets\bullet2.png"
     bossbullet = r".\assets\bullets\bossbullet.png"
     bossshockwave = r".\assets\bullets\bossbullet2.png"
+
+    dog = [
+        r".\assets\dog\dog1.png",
+        r".\assets\dog\dog2.png",
+        r".\assets\dog\dog3.png",
+        r".\assets\dog\dog4.png",
+        r".\assets\dog\dog5.png",
+    ]
 
     weapon = [
         r".\assets\weapons\gun.png",
@@ -233,6 +254,11 @@ class GamePath:
         r".\assets\tiles\ground4.png", 
         r".\assets\tiles\ground5.png", 
         r".\assets\tiles\ground6.png", 
+        r".\assets\tiles\city7.png", 
+        r".\assets\tiles\city8.png", 
+        r".\assets\tiles\city9.png", 
+        r".\assets\tiles\city10.png", 
+
     ]
 
     cityTiles = [
@@ -242,16 +268,46 @@ class GamePath:
         r".\assets\tiles\city4.png", 
         r".\assets\tiles\city5.png", 
         r".\assets\tiles\city6.png", 
+        r".\assets\tiles\city7.png", 
+        r".\assets\tiles\city8.png", 
+        r".\assets\tiles\city9.png", 
+        r".\assets\tiles\city10.png", 
     ]
 
+    winmapTiles = [
+        r".\assets\tiles\winmap1.png", 
+        r".\assets\tiles\winmap2.png", 
+        r".\assets\tiles\winmap3.png", 
+        r".\assets\tiles\winmap4.png", 
+        r".\assets\tiles\winmap5.png", 
+        r".\assets\tiles\winmap6.png", 
+        r".\assets\tiles\city7.png", 
+        r".\assets\tiles\city8.png", 
+        r".\assets\tiles\city9.png", 
+        r".\assets\tiles\city10.png", 
+
+    ]
+
+    obstacles = [
+        r".\assets\tiles\tree.png",
+        r".\assets\tiles\desk.png",
+        r".\assets\tiles\column.png",
+    ]
     copperbox = r".\assets\others\copperbox.png"
     silverbox = r".\assets\others\silverbox.png"
     goldenbox = r".\assets\others\goldenbox.png"
 
-    menu = r".\assets\others\menu.png"
+    menu = r".\assets\others\menu.gif"
     gameover = r".\assets\others\gameover.png"
-    tree = r".\assets\tiles\tree.png"
+    badending = r".\assets\others\badending.png"
+    goodending = r".\assets\others\goodending.png"
+    
     portal = r".\assets\others\portal.png"
+
+    city = r".\assets\bgm\city.mp3"
+    fighting = r".\assets\bgm\fighting.mp3"
+    defeat = r".\assets\bgm\defeat.mp3"
+    fire = r".\assets\bgm\fire.wav"
 
 class GameState(Enum):
     MAIN_MENU = 1
@@ -262,12 +318,22 @@ class GameState(Enum):
     GAME_PLAY_WILD = 6
     GAME_QUIT = 7
     GAME_PLAY_CITY = 8
+    GAME_BADENDING = 9
+    GAME_GOODENDING = 10
 
+###新加beattacked,citydialog,windialog
 class GameEvent:
     EVENT_LOSE = pygame.USEREVENT + 1
-    EVENT_DIALOG = pygame.USEREVENT + 2
+    EVENT_DIALOG1 = pygame.USEREVENT + 2
     EVENT_FIGHT = pygame.USEREVENT + 3
     EVENT_RESTART = pygame.USEREVENT + 4
     EVENT_SHOP = pygame.USEREVENT + 5
     EVENT_ENDFIGHT = pygame.USEREVENT +6
     EVENT_QT = pygame.USEREVENT +7
+    EVENT_WIN = pygame.USEREVENT +8
+    EVENT_GOODENDING = pygame.USEREVENT + 9
+    EVENT_BADENDING = pygame.USEREVENT + 10
+    EVENT_BEATTACKED = pygame.USEREVENT + 11
+    EVENT_CITYDIALOG = pygame.USEREVENT + 13
+    EVENT_WINDIALOG = pygame.USEREVENT + 14
+

@@ -19,7 +19,12 @@ def gen_city_map():
     for i in range(SceneSettings.tileXnum):
         tmp = []
         for j in range(SceneSettings.tileYnum):
-            tmp.append(images[randint(0, len(images) - 1)])
+            tot = randint(0, 100)
+            if tot < 1:
+                imagenumber = randint(len(images) - 4, len(images) - 1)
+            else:
+                imagenumber = randint(0, len(images) - 5)
+            tmp.append(images[imagenumber])
         mapObj.append(tmp)
     
     return mapObj
@@ -32,16 +37,40 @@ def gen_wild_map():
     for i in range(SceneSettings.tileXnum):
         tmp = []
         for j in range(SceneSettings.tileYnum):
-            tmp.append(images[randint(0, len(images) - 1)])
+            tot = randint(0, 100)
+            if tot < 1:
+                imagenumber = randint(len(images) - 4, len(images) - 1)
+            else:
+                imagenumber = randint(0, len(images) - 5)
+            tmp.append(images[imagenumber])
+
+        mapObj.append(tmp)
+    
+    return mapObj
+
+def gen_win_map():
+    images = [pygame.image.load(tile) for tile in GamePath.winmapTiles]
+    images = [pygame.transform.scale(image, (SceneSettings.tileWidth, SceneSettings.tileHeight)) for image in images]
+
+    mapObj = []
+    for i in range(SceneSettings.tileXnum):
+        tmp = []
+        for j in range(SceneSettings.tileYnum):
+            tot = randint(0, 200)
+            if tot < 1:
+                imagenumber = randint(len(images) - 4, len(images) - 1)
+            else:
+                imagenumber = randint(0, len(images) - 5)
+            tmp.append(images[imagenumber])
+
         mapObj.append(tmp)
     
     return mapObj
 
 def gen_obstacles():
-    image = pygame.image.load(GamePath.tree) 
+    images = [pygame.image.load(obstacles) for obstacles in GamePath.obstacles]
 
     obstacles = pygame.sprite.Group()
-    # donot generate in the original position of player
     # 左上没生成障碍，因为没做npc和障碍的碰撞
     midx = SceneSettings.tileXnum//2
     midy = SceneSettings.tileYnum//2
@@ -49,6 +78,6 @@ def gen_obstacles():
         for j in range(SceneSettings.tileYnum):
             # 防止在出生点生成obstacle
             if random() < SceneSettings.obstacleDensity and not(i < midx and j < midy) and (i not in range(midx-3, midx+3)) and (j not in range(midy-3, midy+3)):
-                obstacles.add(Block(image, SceneSettings.tileWidth * i, SceneSettings.tileHeight * j))
+                obstacles.add(Block(images[randint(0, len(images) - 1)], SceneSettings.tileWidth * i, SceneSettings.tileHeight * j))
     return obstacles
 

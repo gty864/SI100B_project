@@ -35,6 +35,34 @@ class NPC(pygame.sprite.Sprite):
 
     def can_talk(self):
         return self.talkCD == 0
+    
+    def draw(self, window):
+        window.blit(self.image, self.rect)
+    
+class NPC2(NPC):
+    def __init__(self, x, y):
+        super().__init__(x,y)
+        self.image = pygame.image.load(GamePath.npc2)
+        self.image = pygame.transform.scale(self.image, (NPCSettings.npcWidth, NPCSettings.npcHeight))
+
+        self.type = NPCType.NPC2
+    def update(self):
+        if not self.talking:
+            if self.talkCD > 0:
+                self.talkCD -= 1
+
+class Karina(NPC):
+    def __init__(self, x, y):
+        super().__init__(x,y)
+        self.image = pygame.image.load(GamePath.karina)
+        self.image = pygame.transform.scale(self.image, (NPCSettings.npcWidth, NPCSettings.npcHeight))
+
+        self.type = NPCType.Karina
+    def update(self):
+        if not self.talking:
+            if self.talkCD > 0:
+                self.talkCD -= 1
+
 
 class merchant(NPC):
     def __init__(self, x, y):
@@ -45,13 +73,49 @@ class merchant(NPC):
         self.rect.topleft = (x, y)
 
         self.type = NPCType.MERCHANT
-        self.talking = False
-        self.talkCD = 0 # cooldown of talk
-
     def update(self):
         if not self.talking:
             if self.talkCD > 0:
                 self.talkCD -= 1
+
+class merchant2(merchant):
+    def __init__(self, x, y):
+        super().__init__(x,y)
+        self.image = pygame.image.load(GamePath.merchant2)
+        self.image = pygame.transform.scale(self.image, (NPCSettings.npcWidth-10, NPCSettings.npcHeight+10))
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
+
+        self.type = NPCType.MERCHANT2
+
+class dog(NPC):
+    def __init__(self, x, y):
+        super().__init__(x,y)
+        self.images = [pygame.transform.scale(pygame.image.load(img), 
+                            (NPCSettings.npcWidth-20, NPCSettings.npcHeight-20)) for img in GamePath.dog]
+        
+        self.speed = NPCSettings.dogSpeed
+        self.patrollingRange = 300
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
+        self.index = 0
+
+        self.type = NPCType.DOG
+
+    def update(self):
+        if not self.talking:
+            self.index = (self.index + 1) % len(self.images)
+            self.rect.x += self.speed * self.direction
+            self.image = self.images[self.index]
+            if abs(self.rect.x - self.initialPosition) > self.patrollingRange:
+                self.direction *= -1  # 反转方向
+            
+            if self.direction == -1:
+                self.image = pygame.transform.flip(self.image, True, False)
+
+            if self.talkCD > 0:
+                self.talkCD -= 1
+
 
 class copperbox(merchant):
     def __init__(self, x, y):
@@ -108,6 +172,14 @@ class silverbox(copperbox):
         self.image = pygame.transform.scale(self.image, (NPCSettings.boxWidth, NPCSettings.boxHeight))
 
         self.type = NPCType.SILVERBOX
+
+class paperbox(copperbox):
+    def __init__(self, x, y):
+        super().__init__(x,y)
+        self.image = pygame.image.load(GamePath.copperbox)
+        self.image = pygame.transform.scale(self.image, (NPCSettings.boxWidth, NPCSettings.boxHeight))
+
+        self.type = NPCType.PAPERBOX
 
 
 class goldenbox(copperbox):

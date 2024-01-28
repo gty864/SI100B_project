@@ -42,13 +42,17 @@ class Monster(pygame.sprite.Sprite):
         self.speed += 1
 
     def stronger(self):
-        self.HP += 3
+        self.HP += 4
         self.Attack += 1
 
     def get_posx(self):
         return self.rect.x
     def get_posy(self):
         return self.rect.y
+    
+    def move(self, dx, dy):
+        self.rect.x += dx
+        self.rect.y += dy
     
 class Thug(Monster): #暴徒，速度快，血量低，伤害高
     def __init__(self, x, y):
@@ -138,7 +142,7 @@ class Boss(Monster): # Boss
 
         self.type = MonsterType.Boss
         self.image = pygame.image.load(GamePath.boss)
-        self.image = pygame.transform.scale(self.image, (MonsterSettings.monsterWidth*4, MonsterSettings.monsterHeight*4))
+        self.image = pygame.transform.scale(self.image, (MonsterSettings.monsterWidth*4.5, MonsterSettings.monsterHeight*4.5))
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
 
