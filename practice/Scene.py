@@ -1,8 +1,5 @@
 import pygame
 import Map
-from random import randint
-
-from enum import Enum
 from Settings import *
 from NPC import *
 from Monster import *

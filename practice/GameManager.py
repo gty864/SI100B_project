@@ -18,7 +18,6 @@ import sys
 
 import Bullet
 import Map
-import NPC
 import Monster
 import prop
 

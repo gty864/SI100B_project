@@ -28,12 +28,6 @@ class Monster(pygame.sprite.Sprite):
         if t != 0:
             self.rect.y += self.speed / t * (y-self.rect.y)
             self.rect.x += self.speed / t * (x-self.rect.x) 
-        '''
-        if  self.rect.left < 0 or self.rect.right > WindowSettings.width :
-            self.direction *= -1  # 反转方向
-            self.image = pygame.transform.flip(self.image, True, False)   
-        '''
-
 
     def wasattacked(self,attack):
         self.HP -= attack
@@ -150,6 +144,4 @@ class Boss(Monster): # Boss
         self.HP = BossSettings.bossHP
         self.Attack = BossSettings.bossAttack
         self.direction = 1
-
-    #def 
 

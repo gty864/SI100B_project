@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 from Settings import *
-import pygame
 import random
 
 class prop:

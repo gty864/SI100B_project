@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 from Settings import *
 import pygame
-import math
 import os
 
 class Bullet(pygame.sprite.Sprite):

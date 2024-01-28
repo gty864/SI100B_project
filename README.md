@@ -40,12 +40,16 @@ Gu Tianyu: image collecting and processing, npc, monster, weapon, core mechanics
 
 Wang Jiale: bgm, story,npc
 
-Zheng Meihan: menu, camera following, collision system, npc
+Zheng Meihan: menu, camera following, collision system, npc, dialogbox
 
 Team members
 
-Gu Tianyu guty2023@shanghaitech.edu.cn
+Gu Tianyu guty2023@shanghaitech.edu.cn 2023533051
 
-Wang Jiale wangjl2023@shanghaitech.edu.cn
+Wang Jiale wangjl2023@shanghaitech.edu.cn 2023533056
 
-Zheng Meihan zhengmh2023@shanghaitech.edu.cn 
+Zheng Meihan zhengmh2023@shanghaitech.edu.cn 2023533018
+
+Team Name:
+
+circus troup (马戏团)
